@@ -61,6 +61,8 @@ function Decoder() {
                 break;
             case 242:
                 return new Ret();
+            case 243:
+                return new Retfie();
                 break;
             case 243:
                 return new Retfie();

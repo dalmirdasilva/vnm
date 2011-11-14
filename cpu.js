@@ -21,15 +21,17 @@
  * Cpu class
  */
 function Cpu() {
+    
     this.pc = 0;
     this.ac = 0;
     this.statusFlags = 0;
     this.sleeping = false;
     this.memoryAccess = {read: 0, write: 0};
+    
     this.stack;
     this.memory;
     this.decoder;
-    this.clockFrequency = 10;
+    
     this.interruptionsVector = 8;
     this.interruptionsFlags = 0;
     this.interruptionsMask = 0xff;
@@ -44,8 +46,6 @@ function Cpu() {
         N = 2,
         OVERFLOW = 3
     };
-
-    this._interval;
     
     this.fetchInstruction = function() {
         return this.readMemory(this.nextPc());
@@ -86,20 +86,6 @@ function Cpu() {
             this.executeInstruction(instruction);
             this.checkInterruptions();
         }
-    }
-
-    this.powerOn = function() {
-        var tcy = 1000 / this.clockFrequency;
-        var self = this;
-        this._interval = setInterval(function() {
-            self.clockTick();
-        }, tcy);
-    }
-
-    this.powerOff = function() {
-        clearInterval(this._interval);
-        this.reset();
-        this.awake();
     }
     
     this.sleep = function() {
@@ -154,14 +140,6 @@ function Cpu() {
     this.writeMemory = function(address, data) {
         this.memoryAccess.write++;
         this.memory.write(address, data);
-    }
-    
-    this.setClockFrequency = function(clockFrequency) {
-        this.clockFrequency = clockFrequency;
-    }
-    
-    this.getClockFrequency = function() {
-        return this.clockFrequency;
     }
     
     this.setStack = function(stack) {

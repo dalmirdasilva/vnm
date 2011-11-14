@@ -20,9 +20,10 @@
 /**
  * UI class
  */
-function UI(cpu) {
+function UI(machine) {
     
-    this.cpu = cpu;
+    this.machine = machine;
+    this.cpu = machine.cpu;
     this.cpuPowered;
     this.refreshInterval;
     
@@ -84,14 +85,14 @@ function UI(cpu) {
     
     this.powerCpuOn = function() {
         var self = this;
-        cpu.powerOn(cpu);
+        machine.powerOn(cpu);
         this.refreshInterval = setInterval(function() {
             self.update();
         }, 1000 / cpu.getClockFrequency());
     }
     
     this.powerCpuOff = function() {
-        cpu.powerOff();
+        machine.powerOff();
         clearInterval(this.refreshInterval);
     }
     
