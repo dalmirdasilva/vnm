@@ -25,8 +25,8 @@
     this.commentIndicator = '#';
     this.symbolIndicator = ':';
     this.dataDefinitionIndicator = '.data';
-    this.opcodes = [0, 16, 32, 48, 64, 80, 96, 128, 144, 160, 240, 241, 242];
-    this.mnemonics = ["nop", "sta", "lda", "add", "or", "and", "not", "jmp", "jn", "jz", "hlt", "call", "ret"];
+    this.opcodes = [0, 16, 32, 48, 64, 80, 96, 128, 144, 160, 240, 241, 242, 243];
+    this.mnemonics = ["nop", "sta", "lda", "add", "or", "and", "not", "jmp", "jn", "jz", "hlt", "call", "ret", "retfie"];
     this.compiledCode;
     this.dataDefinition;
     this.symbolTable;

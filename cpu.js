@@ -33,9 +33,16 @@ function Cpu() {
     this.interruptionsVector = 8;
     this.interruptionsFlags = 0;
     this.interruptionsMask = 0xff;
-    this.masks = {
-        pc: 0xff,
-        ac: 0xffffffff
+    
+    this.MASKS = {
+        PC: 0xff,
+        AC: 0xffffffff
+    };
+    
+    this.STATUS_BITS = {
+        Z = 1,
+        N = 2,
+        OVERFLOW = 3
     };
 
     this._interval;
@@ -68,7 +75,7 @@ function Cpu() {
     
     this.nextPc = function() {
         var pc = this.pc++;
-        this.pc &= this.masks.pc;
+        this.pc &= this.MASKS.PC;
         return pc;
     }
     
@@ -109,15 +116,15 @@ function Cpu() {
     
     this.updateFlags = function() {
         if(this.ac == 0) {
-            this.statusFlags |= 1;
+            this.statusFlags |= 1 << this.STATUS_BITS.Z;
         } else {
-            this.statusFlags &= ~(1);
+            this.statusFlags &= ~(1 << this.STATUS_BITS.Z);
         }
-        
+
         if(this.ac < 0) {
-            this.statusFlags |= 2;
+            this.statusFlags |= 1 << this.STATUS_BITS.N;
         } else {
-            this.statusFlags &= ~(2);
+            this.statusFlags &= ~(1 << this.STATUS_BITS.N);
         }
     }
 
@@ -178,19 +185,19 @@ function Cpu() {
     }
     
     this.setPc = function(pc) {
-        this.pc = (pc & this.masks.pc);
+        this.pc = (pc & this.MASKS.PC);
     }
     
     this.getPc = function() {
-        return (this.pc & this.masks.pc);
+        return (this.pc & this.MASKS.PC);
     }
     
     this.setAc = function(ac) {
-        this.ac = (ac & this.masks.ac);
+        this.ac = (ac & this.MASKS.AC);
     }
     
     this.getAc = function() {
-        return (this.ac & this.masks.ac);
+        return (this.ac & this.MASKS.AC);
     }
     
     this.setStatusFlags = function(statusFlags) {

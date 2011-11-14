@@ -5,5 +5,4 @@ function Keyboard() {
     this.input = function() {
         
     }
-    
 }
