@@ -1,15 +1,11 @@
 var IObus = {};
 
-IObus.instance = new function() {
-    this.
-    
-    this.getInstance
-    
-    this.cpu = cpu;
-    this.ports = new Array();
-    
-};
+IObus.port = [0, 0, 0, 0];
 
-IObus.getInstanece = function() {
-    return IObus.instance;
+IObus.read = function(port) {
+    return IObus.port[port];
+}
+
+IObus.write = function(port, data) {
+    IObus.port[port] = data;
 }
